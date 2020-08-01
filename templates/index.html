@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flack</title>
+    <!-- Link Bootstrap 4-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+    <style>
+        .modal-backdrop{
+            opacity: 0.9 !important;
+        }
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+
+    <script id="message-template" type="text/x-handlebars-template">
+    
+        <li>
+            {% raw -%}
+                {{sender}}:{{content}}
+            {%- endraw %}
+        </li>
+        
+    </script>
+
+    <script id="channel-link-template" type="text/x-handlebars-template">
+            <a href="" id={{channel_name}} class="channel-link">
+                {% raw -%}
+                    {{channel_name}}
+                {%- endraw %}
+            </a>
+    </script>
+
+
+
+</head>
+
+
+<body>
+    <div class="container">
+
+        <!-- enter username modal -->
+        <div class="modal fade" id="join-modal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title">Enter a username</h4>
+                        <button id="close-modal" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="username-form" class="modal-form">
+                            <div class="form-group">
+                                <input type="text" id="enter-user" class="form-control" placeholder="Enter username" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="join">Join</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <div id="body">
+
+            Hello, <span id="username"></span>
+            <button id="change-user" class="btn btn-primary">Change user</button>
+
+            <div id="channels">
+                <button id="add-channel" class="btn btn-primary" data-toggle="modal" data-target="new-channel-modal">Add channel</button>
+
+                <!-- new channel modal -->
+                <div class="modal fade" id="new-channel-modal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title">Create a new channel.</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="channel-form" class="modal-form">
+                                    <div class="form-group">
+                                        <input type="text" id="enter-channel" class="form-control" placeholder="Enter channel name" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" id="create-channel">Create Channel</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+
+                <ol id="channel-list">
+
+                </ol>
+            </div>
+
+            <div class="container" id="chat">
+                <h4 id="channel-name"></h4>
+                <ul id="message-list">
+
+                </ul>
+                
+                <div id="input-message">
+                    <form id="send-message">
+                        <div class="form-group">
+                            <input type="text" id="new-message" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-success" >Send</button>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</body>
+
+<script src="../static/index.js"></script>
+
+</html>
