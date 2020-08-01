@@ -4,6 +4,7 @@ class Channel:
         self.name = name
         self.messages = []
         self.time_of_creation = time.time()
+        self.add_message(content=f"Welcome to {self.name}!", sender="admin")
     def add_message(self, content, sender):
         message = Message(content=content, channel=self.name, sender=sender)
         self.messages.append(message)

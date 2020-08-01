@@ -12,7 +12,6 @@ socketio = SocketIO(app)
 
 # global data to be shared among all users
 firstChannel = Channel(name="Home")
-firstChannel.add_message("hello", "kritika")
 channel_dict = {"Home":firstChannel}
 
 @app.route("/")
@@ -28,7 +27,6 @@ def add_channel(data):
         channel = Channel(name=name)
         channel_dict[name] = channel
         channel_json = json.dumps(channel.__dict__, default=lambda o: o.__dict__)
-        print(channel_json)
         emit("channel added", channel_json, broadcast=True)
     else:
         emit("duplicate channel", name)
@@ -41,7 +39,6 @@ def connect():
         
 @socketio.on("send message")
 def new_message(data):
-    print(data)
     channel = channel_dict[data["channel"]]
     channel.add_message(content=data["content"], sender=data["sender"])
 

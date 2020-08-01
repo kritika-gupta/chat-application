@@ -15,8 +15,65 @@
 
 
     <style>
+
+        #header{
+            padding: 20px;
+        }
         .modal-backdrop{
             opacity: 0.9 !important;
+        }
+
+        #body{
+            text-align: center;
+            position: relative;
+        }
+        #sidebar{
+            position: sticky;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            overflow-x: hidden;
+            border: 2px solid black;
+            padding: 20px;
+        }
+        
+        #channel-list{
+            text-align: left;
+        }
+        #chat{
+            position: relative;
+            padding: 20px;
+            border: 2px solid black;
+        }
+
+        .message{
+            border: 2px solid rgba(176, 217, 233, 1);
+            background-color: rgba(176, 217, 233, 0.3);
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .message::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .message .sender{
+            text-align: left;
+            font-weight: bolder;
+        }
+
+        .message .time{
+            text-align: right;
+        }
+        .message .content{
+            text-align: left;
+
+        }
+        #input-message{
+            margin-top: 20px;
         }
 
     </style>
@@ -24,11 +81,24 @@
 
     <script id="message-template" type="text/x-handlebars-template">
     
-        <li>
-            {% raw -%}
-                {{sender}}:{{content}}
-            {%- endraw %}
-        </li>
+        <div class="message">
+           <p class="sender"> 
+                {% raw -%}
+                    {{sender}}
+                {%- endraw %}
+           </p>
+
+            <p class="content">
+                {% raw -%}
+                    {{content}}
+                {%- endraw %}
+            </p>
+            <p class="time">
+                {% raw -%}
+                    {{sender}}
+                {%- endraw %}
+            </p>
+        </div>
         
     </script>
 
@@ -71,55 +141,73 @@
             </div>
 
         </div>
+
+        <div class="modal fade" id="new-channel-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title">Create a new channel.</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="channel-form" class="modal-form">
+                            <div class="form-group">
+                                <input type="text" id="enter-channel" class="form-control" placeholder="Enter channel name"
+                                    required>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="create-channel">Create Channel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
         
         <div id="body">
+            <div class="row">
+                <div class="col-12" id="header">
+                    <h4>Chat Application</h4>
+                    
+                </div>
+            </div>
 
-            Hello, <span id="username"></span>
-            <button id="change-user" class="btn btn-primary">Change user</button>
+            <div class="row">
+                <div class="col-4">
+                    <div id="sidebar">
+                        <h5>Logged in as : <span id="username"></span></h5>
+                        <button id="change-user" class="btn btn-primary">Change user</button>
+                        <br>
+                        <br>
+                        <h5>Available Channels:</h5>
+                        <ol id="channel-list">
+                    
+                        </ol>
 
-            <div id="channels">
-                <button id="add-channel" class="btn btn-primary" data-toggle="modal" data-target="new-channel-modal">Add channel</button>
+                        <button id="add-channel" class="btn btn-primary" data-toggle="modal" data-target="new-channel-modal">New
+                            Channel</button>
+                    </div>
+                </div>
 
-                <!-- new channel modal -->
-                <div class="modal fade" id="new-channel-modal" tabindex="-1" role="dialog">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header text-center">
-                                <h4 class="modal-title">Create a new channel.</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form id="channel-form" class="modal-form">
-                                    <div class="form-group">
-                                        <input type="text" id="enter-channel" class="form-control" placeholder="Enter channel name" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary" id="create-channel">Create Channel</button>
-                                </form>
-                            </div>
+                <div class="col-8">
+                    <div id="chat">
+                        <h4 id="channel-name"></h4>
+                        <div id="message-list">
+                    
+                        </div>
+                    
+                        <div id="input-message">
+                            <form id="send-message">
+                                <div class="form-group">
+                                    <input type="text" id="new-message" class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-success">Send</button>
+                            </form>
                         </div>
                     </div>
-                
-                </div>
-
-                <ol id="channel-list">
-
-                </ol>
-            </div>
-
-            <div class="container" id="chat">
-                <h4 id="channel-name"></h4>
-                <ul id="message-list">
-
-                </ul>
-                
-                <div id="input-message">
-                    <form id="send-message">
-                        <div class="form-group">
-                            <input type="text" id="new-message" class="form-control">
-                        </div>
-                        <button type="submit" class="btn btn-success" >Send</button>
-                    </form>
                 </div>
             </div>
+            
+
+            
 
 
         </div>
