@@ -7,9 +7,11 @@ Extended from project 2 of the course <a href = "https://courses.edx.org/courses
 Project details : https://docs.cs50.net/web/2020/x/projects/2/project2.html
 
 This application is currently not hosted. 
-To test the app, run the server locally. Python3.8 or higher is required. 
+To test the app, run the server locally. Python3.6 or higher is required. 
 
-    python3.8 -m pip install -r requirements.txt
+    python3 -m venv venv
+    source venv/bin/activate
+    python3 -m pip install -r requirements.txt
     export FLASK_APP=application.py
     flask run
     
